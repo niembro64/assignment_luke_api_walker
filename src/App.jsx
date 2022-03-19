@@ -54,7 +54,7 @@ function App() {
             );
           })}
         </select>
-        <input name="x_num" className="options" type="number" min="1" max="10" onChange={(event)=>{setNum(event.target.value)}}/>
+        <input name="x_num" className="options" type="number" min="1" max="10" defaultValue="1" onChange={(event)=>{setNum(event.target.value)}}/>
         <button className="btn btn-primary mx-4" onClick={onClickHandler}>
           Go
         </button>
