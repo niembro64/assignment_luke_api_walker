@@ -5,42 +5,78 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
-  const [entity, setEntity] = useState([]);
-  const [list, setList] = useState(["person", "planet", "gun"]);
+  const [list, setList] = useState(["list1", "list2", "list3"]);
+  const [listInfo, setListInfo] = useState([
+    ["person", "name", "haircolor"],
+    ["planet", "size", "color"],
+    ["gun", "power", "color"],
+  ]);
+  const [entity, setEntity] = useState([
+    { name: "name1", age: "age1", haircolor: "brown" },
+  ]);
+  const [num, setNum] = useState(1);
 
   const p = (a) => {
     console.log(a);
   };
 
-  const fetchInfo = (event) => {
-    event.preventDefault();
-
-    // console.log("calling axios list");
+  useEffect(() => {
     axios.get("https://swapi.dev/api/").then((response) => {
-      p(response.data);
       const keys = Object.keys(response.data);
       setList(keys);
     });
+  }, [list]);
 
-    // console.log("calling axios people");
-    // axios.get("https://swapi.dev/api/people/1/").then((response) => {
-    //   console.log(response.data);
-    //   setEntity(response.data);
-    // });
+  const onClickHandler = (event) => {
+    event.preventDefault();
+
+    console.log("calling axios people");
+    axios.get("https://swapi.dev/api/people/1/").then((response) => {
+      console.log(response.data);
+      setEntity(response.data);
+    });
   };
 
   return (
     <div className="App">
       <h1>Luke API Walker</h1>
       <form>
-        <input type="text" />
-        <button className="btn btn-primary mx-4" onClick={fetchInfo}>
+        <select name="x_type" className="options">
+          {list.map((item, i) => {
+            return (
+              <option
+                className="options"
+                key={i}
+                value={item}
+              >
+                {item}
+              </option>
+            );
+          })}
+        </select>
+        <input name="x_num" className="options" type="number" min="1" max="10" onChange={(event)=>{setNum(event.target.value)}}/>
+        <button className="btn btn-primary mx-4" onClick={onClickHandler}>
           Go
         </button>
       </form>
-      {list.map((item, i) => {
-        return <p key={i}>{item}</p>;
-      })}
+      <div className="box">
+        {list.map((item, i) => {
+          return <p key={i}>{item}</p>;
+        })}
+      </div>
+      <div className="box">
+        {entity.map((item, i) => {
+          return (
+            <>
+              {<p>{item.name}</p>}
+              {<p>{item.haircolor}</p>}
+            </>
+          );
+        })}
+      </div>
+      <div className="box">
+        <p>{num}</p>
+      </div>
     </div>
   );
 }
