@@ -11,10 +11,24 @@
   border: 1px solid black;
   padding: 5px;
   margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .options {
   height: 40px;
   padding: 5px;
   margin: 5px;
+}
+
+.pboy{
+  width: 30%;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
 }
