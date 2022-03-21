@@ -31,12 +31,12 @@ function App() {
   };
 
   useEffect(() => {
-    // p("useEffect Running");
+    p("useEffect Running");
     axios.get("https://swapi.dev/api/").then((response) => {
       const keys = Object.keys(response.data);
       setList(keys);
     });
-  }, [entity, list, num, ent, help]);
+  }, []);
 
   const onClickHandler = (event) => {
     event.preventDefault();
